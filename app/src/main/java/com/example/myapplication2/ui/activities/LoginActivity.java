@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.myapplication2.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import com.example.myapplication2.R;
+import com.example.myapplication2.ui.Utils;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 

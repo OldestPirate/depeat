@@ -1,13 +1,13 @@
-package com.example.myapplication2;
+package com.example.myapplication2.ui;
 
 import android.util.Patterns;
 
 public class Utils {
 
     //attributi statici
-    final static int LEN_NUMBER = 10;
-    final static int LEN_PASSWORD = 6;
-    final static String EMAIL_KEY = "email";
+    public final static int LEN_NUMBER = 10;
+    public final static int LEN_PASSWORD = 6;
+    public final static String EMAIL_KEY = "email";
 
 
     //metodi statici

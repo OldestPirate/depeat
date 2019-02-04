@@ -6,17 +6,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication2.R;
+import com.example.myapplication2.datamodels.Restaurant;
 
 import java.util.ArrayList;
 
 public class RestaurantAdapter extends RecyclerView.Adapter {
     LayoutInflater inflater;
-    private ArrayList<String> data;
+    private ArrayList<Restaurant> data;
 
-    public RestaurantAdapter(Context context, ArrayList<String> data){
+    public RestaurantAdapter(Context context, ArrayList<Restaurant> data){
         inflater = LayoutInflater.from(context);
         this.data = data;
     }
@@ -31,7 +33,11 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int pos) {
         RestaurantViewHolder vh = (RestaurantViewHolder) viewHolder;
-        vh.restaurantName.setText(data.get(pos));
+        vh.restaurantNameTv.setText(data.get(pos).getName());
+        vh.restaurantAddressTv.setText(data.get(pos).getAddress());
+        vh.restaurantPhoneNumberTv.setText(data.get(pos).getPhoneNumber());
+        vh.restaurantIconIv.setImageResource(data.get(pos).getImage());
+        vh.restaurantMinOrderTv.setText("ordine minimo: " + data.get(pos).getMinOrder() + "€");
     }
 
     @Override
@@ -41,10 +47,19 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
 
     public class RestaurantViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView restaurantName;
+        public TextView restaurantNameTv;
+        public TextView restaurantAddressTv;
+        public TextView restaurantPhoneNumberTv;
+        public ImageView restaurantIconIv;
+        public TextView restaurantMinOrderTv;
+
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
-            restaurantName = itemView.findViewById(R.id.name_tv);
+            restaurantNameTv = itemView.findViewById(R.id.restaurant_name_tv);
+            restaurantAddressTv = itemView.findViewById(R.id.restaurant_address_tv);
+            restaurantPhoneNumberTv = itemView.findViewById(R.id.restaurant_phone_number_tv);
+            restaurantIconIv = itemView.findViewById(R.id.restaurant_iv);
+            restaurantMinOrderTv = itemView.findViewById(R.id.restaurant_min_order_tv);
         }
     }
 }

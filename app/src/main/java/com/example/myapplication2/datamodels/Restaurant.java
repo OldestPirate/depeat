@@ -1,37 +1,56 @@
 package com.example.myapplication2.datamodels;
 
 public class Restaurant {
-    private String nome, indirizzo;
-    private long numeroTelefonico;
+    private String name, address, phoneNumber;
+    private int image, minOrder;
 
-    public Restaurant(String nome, String indirizzo, long numeroTelefonico){
-        this.nome = nome;
-        this.indirizzo = indirizzo;
-        this.numeroTelefonico = numeroTelefonico;
+
+    public Restaurant(String name, String address, String phoneNumber, int image, int minOrder){
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.image = image;
+        this.minOrder= minOrder;
     }
 
-    public String getNome() {
-        return nome;
+    public int getMinOrder() {
+        return minOrder;
     }
 
-    public long getNumeroTelefonico() {
-        return numeroTelefonico;
+    public void setMinOrder(int minOrder) {
+        this.minOrder = minOrder;
     }
 
-    public String getIndirizzo() {
-        return indirizzo;
+    public int getImage() {
+        return image;
     }
 
-    public void setIndirizzo(String indirizzo) {
-        this.indirizzo = indirizzo;
+    public void setImage(int image) {
+        this.image = image;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNumeroTelefonico(long numeroTelefonico) {
-        this.numeroTelefonico = numeroTelefonico;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
 }

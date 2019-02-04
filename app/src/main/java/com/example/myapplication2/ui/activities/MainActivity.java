@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.myapplication2.R;
+import com.example.myapplication2.datamodels.Restaurant;
 import com.example.myapplication2.ui.adapters.RestaurantAdapter;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView restaurantRV;
     RecyclerView.LayoutManager layoutManager;
     RestaurantAdapter adapter;
-    ArrayList<String> arrayList;
+    ArrayList<Restaurant> arrayList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,15 +35,15 @@ public class MainActivity extends AppCompatActivity {
         restaurantRV.setAdapter(adapter);
     }
 
-    private ArrayList<String> getData(){
+    private ArrayList<Restaurant> getData(){
         arrayList = new ArrayList<>();
-        arrayList.add("McDonald's");
-        arrayList.add("BurgerKing");
-        arrayList.add("Old Wild West");
-        arrayList.add("la Tavarna");
-        arrayList.add("KFC");
-        arrayList.add("Roadhouse");
-        arrayList.add("100 Montaditos");
+        arrayList.add(new Restaurant("ristorante 1", "via rossi 00 roma", "+39 06 35627895", R.drawable.ic_restaurant, 15));
+        arrayList.add(new Restaurant("fastfood 1", "via bianchi 11 roma", "+39 06 31589493", R.drawable.ic_fastfood, 12));
+        arrayList.add(new Restaurant("fastfood 2", "via bianchi 11 roma", "+39 06 31589493", R.drawable.ic_fastfood, 10));
+        arrayList.add(new Restaurant("fastfood 3", "via bianchi 11 roma", "+39  06 31589493", R.drawable.ic_fastfood, 18));
+        arrayList.add(new Restaurant("ristorante 2", "via rossi 00 roma", "+39 06 35627895", R.drawable.ic_restaurant, 15));
+        arrayList.add(new Restaurant("pub", "via dublino 77 roma", "+39 06 87571737", R.drawable.ic_bar, 5));
+        arrayList.add(new Restaurant("ristorante 3", "via rossi 00 roma", "+39 06 35627895", R.drawable.ic_restaurant, 20));
 
         return arrayList;
     }

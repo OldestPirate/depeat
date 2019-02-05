@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -18,8 +19,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    boolean layoutActualStateIsGrid = false;
     RecyclerView restaurantRV;
     RecyclerView.LayoutManager layoutManager;
+    RecyclerView.LayoutManager layoutManager2;
     RestaurantAdapter adapter;
     ArrayList<Restaurant> arrayList;
 
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         restaurantRV = findViewById(R.id.places_rv);
         layoutManager = new LinearLayoutManager(this);
+        layoutManager2 = new GridLayoutManager(this, 2);
         adapter = new RestaurantAdapter(this, getData());
 
         restaurantRV.setLayoutManager(layoutManager);
@@ -64,7 +68,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, CheckoutActivity.class));
             return true;
         } else if (item.getItemId() == R.id.grid_menu){
-            setContentView(R.layout.);
+            if (layoutActualStateIsGrid == false){
+                restaurantRV.setLayoutManager(layoutManager2);
+                restaurantRV.setAdapter(adapter);
+                layoutActualStateIsGrid = true;
+            } else if(layoutActualStateIsGrid == true){
+                restaurantRV.setLayoutManager(layoutManager);
+                restaurantRV.setAdapter(adapter);
+                layoutActualStateIsGrid = false;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

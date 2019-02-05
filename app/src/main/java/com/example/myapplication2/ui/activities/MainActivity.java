@@ -60,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.login_menu) {
             startActivity(new Intent(this, LoginActivity.class));
             return true;
+        } else if (item.getItemId() == R.id.checkout_menu){
+            startActivity(new Intent(this, CheckoutActivity.class));
+            return true;
+        } else if (item.getItemId() == R.id.grid_menu){
+            setContentView(R.layout.);
         }
         return super.onOptionsItemSelected(item);
     }

@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/login_menu"
-        android:title="@string/login" />
+        android:title="@string/login"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_person_black_24dp"/>
     <item
         android:id="@+id/checkout_menu"
-        android:title="@string/checkout"/>
+        android:title="@string/checkout"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"/>
+    <item
+        android:id="@+id/grid_menu"
+        android:icon="@drawable/ic_grid"
+        android:title="@string/grid"
+        app:showAsAction="always"/>
 
 </menu>

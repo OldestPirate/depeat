@@ -51,9 +51,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         else {
             showToast(R.string.access_success);
-            /*Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra(Utils.EMAIL_KEY, email);
-            startActivity(intent);*/
+            startActivity(intent);
         }
     }
 

@@ -19,7 +19,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean layoutActualStateIsGrid = false;
+    private boolean layoutActualStateIsGrid = false;
+    public static int orientation;
     RecyclerView restaurantRV;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.LayoutManager layoutManager2;
@@ -71,10 +72,12 @@ public class MainActivity extends AppCompatActivity {
             if (layoutActualStateIsGrid == false){
                 restaurantRV.setLayoutManager(layoutManager2);
                 restaurantRV.setAdapter(adapter);
+                orientation = 1;
                 layoutActualStateIsGrid = true;
             } else if(layoutActualStateIsGrid == true){
                 restaurantRV.setLayoutManager(layoutManager);
                 restaurantRV.setAdapter(adapter);
+                orientation = 0;
                 layoutActualStateIsGrid = false;
             }
         }

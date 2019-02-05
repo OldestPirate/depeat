@@ -9,7 +9,6 @@ public class Utils {
     public final static int LEN_PASSWORD = 6;
     public final static String EMAIL_KEY = "email";
 
-
     //metodi statici
     public static boolean verifyEmail(String email){
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();

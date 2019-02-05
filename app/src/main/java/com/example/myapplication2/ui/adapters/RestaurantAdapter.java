@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myapplication2.R;
 import com.example.myapplication2.datamodels.Restaurant;
+import com.example.myapplication2.ui.activities.MainActivity;
 
 import java.util.ArrayList;
 
@@ -38,6 +40,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
         vh.restaurantPhoneNumberTv.setText(data.get(pos).getPhoneNumber());
         vh.restaurantIconIv.setImageResource(data.get(pos).getImage());
         vh.restaurantMinOrderTv.setText("ordine minimo: " + data.get(pos).getMinOrder() + "€");
+        vh.externalLayoutLl.setOrientation(MainActivity.orientation);
     }
 
     @Override
@@ -52,6 +55,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
         public TextView restaurantPhoneNumberTv;
         public ImageView restaurantIconIv;
         public TextView restaurantMinOrderTv;
+        public LinearLayout externalLayoutLl;
 
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +64,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
             restaurantPhoneNumberTv = itemView.findViewById(R.id.restaurant_phone_number_tv);
             restaurantIconIv = itemView.findViewById(R.id.restaurant_iv);
             restaurantMinOrderTv = itemView.findViewById(R.id.restaurant_min_order_tv);
+            externalLayoutLl = itemView.findViewById(R.id.external_linear_layout_ll);
         }
     }
 }

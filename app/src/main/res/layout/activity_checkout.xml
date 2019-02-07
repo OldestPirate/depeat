@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <android.support.v7.widget.CardView
+        android:id="@+id/product_cv"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/products_rv"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/divider_v"
+        android:layout_below="@id/product_cv"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/divider_v"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_above="@id/linear_layout_ll"/>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:layout_above="@+id/min_order_pb"
+        android:background="@color/cardview_light_background">
+
+        <TextView
+            android:id="@+id/total_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/min_order_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/min_order"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/min_order_pb"
+        android:padding="8dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/checkout_Btn"
+        android:background="@color/cardview_light_background"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/checkout"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/checkout_Btn"
+        android:background="@color/cardview_light_background"/>
+
+</RelativeLayout>

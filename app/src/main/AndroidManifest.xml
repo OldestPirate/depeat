@@ -18,6 +18,7 @@
 
         <activity android:name=".ui.activities.RegisterActivity"/>
         <activity android:name=".ui.activities.LoginActivity"/>
+        <activity android:name=".ui.activities.CheckoutActivity"/>
 
     </application>
 </manifest>

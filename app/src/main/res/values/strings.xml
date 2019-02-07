@@ -13,4 +13,9 @@
     <string name="dark_mode">dark mode</string>
     <string name="checkout">checkout</string>
     <string name="grid">grid</string>
+    <string name="total">total</string>
+    <string name="min_order">min order</string>
+    <string name="add">+</string>
+    <string name="sub">-</string>
+    <string name="quantity_hint">1</string>
 </resources>

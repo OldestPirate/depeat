@@ -1,86 +1,119 @@
 package com.example.myapplication2.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
+import android.widget.Toast;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.myapplication2.R;
 import com.example.myapplication2.datamodels.Restaurant;
+import com.example.myapplication2.services.RestController;
 import com.example.myapplication2.ui.adapters.RestaurantAdapter;
-
+import org.json.JSONArray;
+import org.json.JSONException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Response.Listener<String>, Response.ErrorListener {
 
-    private boolean layoutActualStateIsGrid = false;
-    public static int orientation;
+    private static final String TAG = MainActivity.class.getSimpleName();
     RecyclerView restaurantRV;
     RecyclerView.LayoutManager layoutManager;
-    RecyclerView.LayoutManager layoutManager2;
     RestaurantAdapter adapter;
-    ArrayList<Restaurant> arrayList;
+    ArrayList<Restaurant> arrayList = new ArrayList<>();
+    private RestController restController;
+    SharedPreferences sharedPreferences;
+    private static final String SharedPrefs = "org.elis.depeat.general_prefs";
+    private static final String VIEW_MODE = "VIEW_MODE";
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         restaurantRV = findViewById(R.id.places_rv);
-        layoutManager = new LinearLayoutManager(this);
-        layoutManager2 = new GridLayoutManager(this, 2);
-        adapter = new RestaurantAdapter(this, getData());
-
+        layoutManager = getLayoutManager(getSavedLayoutManager());
+        adapter = new RestaurantAdapter(this);
+        adapter.setGridMode(getSavedLayoutManager());
         restaurantRV.setLayoutManager(layoutManager);
         restaurantRV.setAdapter(adapter);
-    }
-
-    private ArrayList<Restaurant> getData(){
-        arrayList = new ArrayList<>();
-        arrayList.add(new Restaurant("ristorante 1", "via rossi 00 roma", "+39 06 35627895", R.drawable.ic_restaurant, 15));
-        arrayList.add(new Restaurant("fastfood 1", "via bianchi 11 roma", "+39 06 31589493", R.drawable.ic_fastfood, 12));
-        arrayList.add(new Restaurant("fastfood 2", "via bianchi 11 roma", "+39 06 31589493", R.drawable.ic_fastfood, 10));
-        arrayList.add(new Restaurant("fastfood 3", "via bianchi 11 roma", "+39  06 31589493", R.drawable.ic_fastfood, 18));
-        arrayList.add(new Restaurant("ristorante 2", "via rossi 00 roma", "+39 06 35627895", R.drawable.ic_restaurant, 15));
-        arrayList.add(new Restaurant("pub", "via dublino 77 roma", "+39 06 87571737", R.drawable.ic_bar, 5));
-        arrayList.add(new Restaurant("ristorante 3", "via rossi 00 roma", "+39 06 35627895", R.drawable.ic_restaurant, 20));
-
-        return arrayList;
+        restController = new RestController(this);
+        restController.getRequest(Restaurant.ENDPOINT,this,this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_main,menu);
+        menu.findItem(R.id.view_mode).setIcon(getSavedLayoutManager()?R.drawable.ic_list_white_24dp:R.drawable.ic_grid_on_white_24dp);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.login_menu) {
-            startActivity(new Intent(this, LoginActivity.class));
+        if (item.getItemId() == R.id.view_mode){
+            setLayoutManager();
+            item.setIcon(adapter.isGridMode()?R.drawable.ic_list_white_24dp : R.drawable.ic_grid_on_white_24dp);
             return true;
-        } else if (item.getItemId() == R.id.checkout_menu){
-            startActivity(new Intent(this, CheckoutActivity.class));
+        }
+        if(item.getItemId() == R.id.login_menu){
+
+            startActivity(new Intent(this,LoginActivity.class));
+             return true;
+        }else if(item.getItemId() == R.id.checkout_menu){
+            startActivity(new Intent(this,CheckoutActivity.class));
             return true;
-        } else if (item.getItemId() == R.id.grid_menu){
-            if (layoutActualStateIsGrid == false){
-                restaurantRV.setLayoutManager(layoutManager2);
-                restaurantRV.setAdapter(adapter);
-                orientation = 1;
-                layoutActualStateIsGrid = true;
-            } else if(layoutActualStateIsGrid == true){
-                restaurantRV.setLayoutManager(layoutManager);
-                restaurantRV.setAdapter(adapter);
-                orientation = 0;
-                layoutActualStateIsGrid = false;
-            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setLayoutManager(){
+        layoutManager = getLayoutManager(!adapter.isGridMode());
+        adapter.setGridMode(!adapter.isGridMode());
+        restaurantRV.setLayoutManager(layoutManager);
+        restaurantRV.setAdapter(adapter);
+        saveLayoutManager(adapter.isGridMode());
+    }
+
+    private void saveLayoutManager(boolean isGridLayout){
+        sharedPreferences = getSharedPreferences(SharedPrefs,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(VIEW_MODE,isGridLayout);
+        editor.apply();
+    }
+
+    private RecyclerView.LayoutManager getLayoutManager(boolean isGridLayout){
+        return isGridLayout? new GridLayoutManager(this,2) : new LinearLayoutManager(this);
+    }
+
+    private boolean getSavedLayoutManager(){
+        sharedPreferences = getSharedPreferences(SharedPrefs,MODE_PRIVATE);
+        return sharedPreferences.getBoolean(VIEW_MODE,false);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.e(TAG,error.getMessage());
+        Toast.makeText(this,error.getMessage(),Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onResponse(String response) {
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            for (int i = 0; i<jsonArray.length();i++){
+                arrayList.add(new Restaurant(jsonArray.getJSONObject(i)));
+            }
+            adapter.setData(arrayList);
+        } catch (JSONException e) {
+            Log.e(TAG,e.getMessage());
+        }
     }
 }

@@ -1,72 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:padding="@dimen/material_layout_vertical_spacing_between_content_areas"
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/product_cv"
-        android:padding="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/products_rv"
-        android:padding="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/divider_v"
-        android:layout_below="@id/product_cv"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:id="@+id/divider_v"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_above="@id/linear_layout_ll"/>
 
     <LinearLayout
-        android:id="@+id/linear_layout_ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:orientation="horizontal"
-        android:layout_above="@+id/min_order_pb"
-        android:background="@color/cardview_light_background">
+        android:orientation="vertical"
+        android:id="@+id/header"
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/total_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/total"
-            android:layout_weight="1"/>
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:text="@string/order_label"/>
 
         <TextView
-            android:id="@+id/min_order_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/min_order"
-            android:layout_weight="1"/>
+            tools:text = "La fraschetta"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:id="@+id/restaurant_name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text = "La fraschetta"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:id="@+id/restaurant_adress"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+            android:background="@color/divider"/>
+
+
 
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/min_order_pb"
-        android:padding="8dp"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
+        android:id="@+id/product_rv"
+        android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+        android:layout_below="@id/header"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/checkout_Btn"
-        android:background="@color/cardview_light_background"/>
+        android:layout_below="@id/product_rv"
+        android:id="@+id/total_tv"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_marginTop="@dimen/vertical_margin"
+        tools:text="@string/total"/>
+
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
-        android:gravity="center"
-        android:text="@string/checkout"
         android:layout_alignParentBottom="true"
-        android:id="@+id/checkout_Btn"
-        android:background="@color/cardview_light_background"/>
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:id="@+id/pay_btn"
+        android:text="@string/pay"/>
+
+
 
 </RelativeLayout>

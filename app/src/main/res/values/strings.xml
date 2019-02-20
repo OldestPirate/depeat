@@ -1,21 +1,26 @@
 <resources>
-    <string name="app_name">My Application 2</string>
+    <string name="app_name">My Application</string>
     <string name="email_hint">insert email</string>
-    <string name="password_hint">insert password</string>
-    <string name="password_confirm_hint">confirm password</string>
+    <string name="password_hint">insert your password</string>
     <string name="login">login</string>
     <string name="register">register</string>
-    <string name="access_success">access success</string>
-    <string name="email_wrong">wrong email</string>
-    <string name="password_wrong">wrong password</string>
-    <string name="welcome">welcome</string>
-    <string name="number_hint">insert number</string>
-    <string name="dark_mode">dark mode</string>
-    <string name="checkout">checkout</string>
-    <string name="grid">grid</string>
-    <string name="total">total</string>
-    <string name="min_order">min order</string>
-    <string name="add">+</string>
-    <string name="sub">-</string>
-    <string name="quantity_hint">1</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="access_succed">Access Succed</string>
+    <string name="non_valid_email">Non Valid Email</string>
+    <string name="non_valid_password">Non Valid Password</string>
+    <string name="welcome">Welcome</string>
+    <string name="username">username</string>
+    <string name="checkout">Checkout</string>
+    <string name="min_order">Min. order :</string>
+    <string name="view">menu</string>
+    <string name="view_mode">view mode</string>
+    <string name="total">Total: </string>
+    <string name="order_label">Order Riepilogue</string>
+    <string name="pay">Pay</string>
+    <string name="remove_title">Are you sure?</string>
+    <string name="be_careful">Be careful</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">cancel</string>
+    <string name="profile">Profile</string>
 </resources>
+

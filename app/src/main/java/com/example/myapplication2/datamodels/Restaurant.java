@@ -1,40 +1,46 @@
 package com.example.myapplication2.datamodels;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class Restaurant {
-    private String name, address, phoneNumber;
-    private int image, minOrder;
 
+    private String name, address, description, imageUrl, id;
+    private float minimumOrder;
+    public static final String ENDPOINT = "restaurants/";
+    private ArrayList<Product> products;
 
-    public Restaurant(String name, String address, String phoneNumber, int image, int minOrder){
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Restaurant(String name, String address, float minimumOrder) {
         this.name = name;
         this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.image = image;
-        this.minOrder= minOrder;
+        this.minimumOrder = minimumOrder;
+        products = new ArrayList<>();
     }
 
-    public int getMinOrder() {
-        return minOrder;
-    }
-
-    public void setMinOrder(int minOrder) {
-        this.minOrder = minOrder;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
+    public Restaurant(JSONObject jsonRestaurant) throws JSONException {
+        id = jsonRestaurant.getString("id");
+        name = jsonRestaurant.getString("name");
+        address = jsonRestaurant.getString("address");
+        minimumOrder = (float)jsonRestaurant.getDouble("min_order");
+        imageUrl = jsonRestaurant.getString("image_url");
     }
 
     public String getName() {
         return name;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
@@ -45,13 +51,27 @@ public class Restaurant {
         this.address = address;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public float getMinimumOrder() {
+        return minimumOrder;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setMinimumOrder(float minimumOrder) {
+        this.minimumOrder = minimumOrder;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
+
+    public String getId() {
+        return id;
+    }
 }
-

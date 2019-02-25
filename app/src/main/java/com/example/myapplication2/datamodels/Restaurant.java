@@ -1,15 +1,38 @@
 package com.example.myapplication2.datamodels;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+@Entity(tableName = "restaurant")
 public class Restaurant {
 
-    private String name, address, description, imageUrl, id;
+    @ColumnInfo(name = "name")
+    private String name;
+
+    @ColumnInfo(name = "address")
+    private String address;
+
+    @ColumnInfo(name = "restaurant_id")
+    private String id;
+
+    @ColumnInfo(name = "image_url")
+    private String imageUrl;
+
+    @ColumnInfo(name = "description")
+    private String description;
+
+    @ColumnInfo(name = "minimum_order")
     private float minimumOrder;
+
     public static final String ENDPOINT = "restaurants/";
+
+    @Ignore
     private ArrayList<Product> products;
 
     public String getImageUrl() {

@@ -2,8 +2,11 @@ package com.example.myapplication2.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,14 +25,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.example.myapplication2.R;
+import com.example.myapplication2.datamodels.Order;
 import com.example.myapplication2.datamodels.Product;
 import com.example.myapplication2.datamodels.Restaurant;
+import com.example.myapplication2.services.AppDatabase;
 import com.example.myapplication2.services.RestController;
 import com.example.myapplication2.ui.adapters.ProductAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShopActivity extends AppCompatActivity implements ProductAdapter.OnQuanityChangedListener, Response.ErrorListener, Response.Listener<String> {
 
@@ -166,6 +172,38 @@ public class ShopActivity extends AppCompatActivity implements ProductAdapter.On
             bindData();
         } catch (JSONException e) {
             Log.e(TAG,e.getMessage());
+        }
+    }
+
+    /*@Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.checkout)
+            new SaveOrder().execute();
+    }*/
+
+    class SaveOrder extends AsyncTask<Void, Void, Void>{
+        @RequiresApi(api = Build.VERSION_CODES.N)
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Order order = new Order();
+            order.setTotal(total);
+            order.setRestaurant(restaurant);
+
+            List<Product> selected = adapter.getData();
+            selected.removeIf(product -> product.getQuantity()<1);
+
+            order.setProducts(selected);
+
+            AppDatabase.getAppDatabase(ShopActivity.this)
+                    .orderDao()
+                    .insert(order);
+
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            startActivity(new Intent(ShopActivity.this,CheckoutActivity.class));
         }
     }
 }

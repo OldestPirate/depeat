@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.example.myapplication2.R;
 import com.example.myapplication2.datamodels.Order;
 import com.example.myapplication2.datamodels.Product;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener, OrderProductsAdapter.onItemRemovedListener{
 
+    private static final String TAG = CheckoutActivity.class.getSimpleName();
     private TextView restaturantTv, restaurantAddress,totalTv;
     private RecyclerView productRv;
     private Button payBtn;
@@ -42,7 +42,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         // setup recyclerview
         layoutManager = new LinearLayoutManager(this);
         productRv.setLayoutManager(layoutManager);
-        adapter = new OrderProductsAdapter(this,order.getProducts(),order.getRestaurant().getMinimumOrder());
+        adapter = new OrderProductsAdapter(this, getProducts(),order.getRestaurant().getMinimumOrder());
         adapter.setOnItemRemovedListener(this);
         productRv.setAdapter(adapter);
 
@@ -57,6 +57,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         restaurantAddress.setText(order.getRestaurant().getAddress());
         totalTv.setText(String.valueOf(order.getTotal()));
     }
+
+
 
     //TODO hardcoded
 

@@ -1,12 +1,31 @@
 package com.example.myapplication2.datamodels;
 
-import java.util.ArrayList;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity(tableName = "Order")
 public class Order {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    @Embedded
     private Restaurant restaurant;
-    private ArrayList<Product> products;
+
+    @ColumnInfo(name = "products")
+    @TypeConverters(ProductTypeConverter.class)
+    private List<Product> products;
+
+    @ColumnInfo(name = "total")
     private float total;
+
+    public static final String ENDPOINT = "orders?user=<YOUR ID>/";
 
     public Restaurant getRestaurant() {
         return restaurant;
@@ -16,11 +35,11 @@ public class Order {
         this.restaurant = restaurant;
     }
 
-    public ArrayList<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(ArrayList<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
@@ -30,5 +49,13 @@ public class Order {
 
     public void setTotal(float total) {
         this.total = total;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

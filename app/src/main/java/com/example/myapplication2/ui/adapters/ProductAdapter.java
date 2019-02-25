@@ -36,6 +36,10 @@ public class ProductAdapter extends RecyclerView.Adapter {
         this.onQuanityChangedListener = onQuanityChangedListener;
     }
 
+    public ArrayList<Product> getData() {
+        return data;
+    }
+
     public void setData(ArrayList<Product> data) {
         this.data = data;
         notifyDataSetChanged();
